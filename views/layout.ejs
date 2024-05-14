@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/reset.css">
     <link rel="stylesheet" href="/style.css">
-    <title>Document</title>
+    <title>LEDDIT</title>
 </head>
 <body>
     <header>
-        <div class="left_header">
+        <div class="left_header" style="display: flex;">
+            <img src="../images/LEDDIT.png" alt="img" style="width: 30px; height: 30px;">
             <a href="/"><h3 style="color: red;">LEDDIT</h3>
                 <div class="user">Current User:
                     <% if (!currentUser.username) { %>
@@ -20,9 +21,9 @@
                 </div>
             </a>
         </div>
-        <form action="">
-        <input type="text" value="Search LEDDIT">
-        <button>Search</button>
+        <form action="/getSearchValue" method="post">
+            <input type="text" value="Search LEDDIT" name="search">
+            <button>Search</button>
         </form>
         <nav>
             <a href="/about" style="color: rgb(238, 255, 0);">ABOUT</a>

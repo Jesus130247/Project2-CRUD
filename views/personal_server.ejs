@@ -1,0 +1,20 @@
+<h1>This is the location of server: <%= server.name %></h1>
+<form action="/server/content/<%= server.name %>/<%= server.servercode_id %>" method="post">
+    <label for="">Say something!</label>
+    <input type="text" name="content">
+    <label for="">Would you like to add an image to this?</label>
+    <input type="text" name="image_url">
+    <button>Add</button>
+</form>
+<% for (let serverContent of serverContents) { %>
+    <div class="contentBox" style="border: solid red; display: flex;">
+        <section>
+            <img src="<%= serverContent.image_url %>" alt="image from server" style="max-width: 150px;">
+            <p><%= serverContent.content %></p>
+        </section>
+        <aside>
+            <button>delete</button>
+            <button>edit</button>
+        </aside>
+    </div>
+<% } %>

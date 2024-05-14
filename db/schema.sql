@@ -1,4 +1,4 @@
-CREATE DATABASE leddit;
+CREATE DATABASE leddit; -- different database created by RENDER
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -8,14 +8,18 @@ CREATE TABLE users (
 );
 
 CREATE TABLE servers (
-    id SERIAL PRIMARY KEY,
+    serverCode_id SERIAL PRIMARY KEY,
     name TEXT,
-    server_code TEXT,
+    users_in TEXT,
     server_url TEXT UNIQUE
 );
 
-ALTER TABLE servers ADD COLUMN server_url TEXT UNIQUE;
-ALTER TABLE servers DROP COLUMN server_url;
+CREATE TABLE content_for_servers (
+    id SERIAL PRIMARY KEY,
+    content TEXT,
+    serverCode_id INTEGER,
+    image_url TEXT
+);
 
 CREATE TABLE comments (
     id SERIAL PRIMARY KEY,
@@ -25,6 +29,9 @@ CREATE TABLE comments (
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     FOREIGN KEY (server_id) REFERENCES servers (id) ON DELETE CASCADE
 );
+
+ALTER TABLE servers ADD COLUMN server_url TEXT UNIQUE;
+ALTER TABLE servers DROP COLUMN server_url;
 
 INSERT INTO servers (name, server_code, server_url) VALUES ($1, $2, $3); ['name', `#123`,`/${serverUrl}`]
 INSERT INTO users (username, email, password_digest) VALUES ($1, $2, $3); ['username', 'email', 'hashed_password']
