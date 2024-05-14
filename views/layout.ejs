@@ -8,12 +8,43 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>CRUD PROJECT TITLE</h1>
-    <nav>
-        <a href="/">HOME</a>
-        <a href="/about">ABOUT</a>
-        <a href="/login">LOGIN</a>
-    </nav>
-    <%- body %>
+    <header>
+        <div class="left_header">
+            <a href="/"><h3 style="color: red;">LEDDIT</h3>
+                <div class="user">Current User:
+                    <% if (!currentUser.username) { %>
+                        <%= 'Anonymuos' %> 
+                    <% } else { %>
+                        <%= currentUser.username %>
+                    <% } %>
+                </div>
+            </a>
+        </div>
+        <form action="">
+        <input type="text" value="Search LEDDIT">
+        <button>Search</button>
+        </form>
+        <nav>
+            <a href="/about" style="color: rgb(238, 255, 0);">ABOUT</a>
+            <a href="/login" style="color: rgb(238, 255, 0);">LOGIN</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <ul>
+            <li><a href="/server/create">CREATE SERVER</a></li>
+            <li><a href="/server/favourties">FAVOURITE SERVERS</a></li>
+        </ul>
+        <div class="body">
+            <%- body %>
+        </div>
+        <aside>
+            This is the section that goes aside
+        </aside>
+    </div>
+
+    <footer>
+        footer section
+    </footer>
 </body>
 </html>

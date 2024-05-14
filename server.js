@@ -11,7 +11,7 @@ const session = require('express-session')
 const ensureLoggedIn = require('./middlewares/ensure_loggedIn.js')
 const sessionRouter = require('./routes/session_router.js')
 const homeRouter = require('./routes/home_router.js')
-const editRouter = require('./routes/editing.js')
+const editRouter = require('./routes/server_router.js')
 const setCurrentUser = require('./middlewares/set_current_user.js')
 
 app.set('view engine', 'ejs')
@@ -27,7 +27,7 @@ app.use(session({
     resave: false,
     saveUnitialzed: true
 }))
-// app.use(setCurrentUser)
+app.use(setCurrentUser)
 app.use(homeRouter)
 app.use(sessionRouter)
 app.use(editRouter)
