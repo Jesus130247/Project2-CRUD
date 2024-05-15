@@ -10,16 +10,27 @@
             <img src="<%= serverContent.image_url %>" alt="image from server" style="max-width: 150px;">
             <p><%= serverContent.content %></p>
             <p>Uploaded by User: <%= serverContent.user_id %></p>
-            <div class="vote"><span><%= serverContent.votes %></span>
-                <button class="upVote">up vote</button>
-                <button class="downVote">down vote</button>
+            <div class="vote">
+                <span>
+                    <% let finalVote = 0 %>
+                    <% for (let vote of votes) { %>
+                        <% finalVote+=vote.vote %>
+                    <% } %>
+                    <%= finalVote %>
+                </span>
+                <form action="/post/upvote/<%= serverContent.content_id%>/<%= server.name %>?_method=put" method="post">
+                    <button class="upVote">up vote</button>
+                </form>
+                <form action="/post/downvote/<%= serverContent.content_id%>/<%= server.name %>?_method=put" method="post">
+                    <button class="downVote">down vote</button>
+                </form>
             </div>
         </section>
         <aside>
-            <form action="/server/<%= server.name %>/content/<%= serverContent.id %>?_method=DELETE" method="post">
+            <form action="/server/<%= server.name %>/content/<%= serverContent.content_id %>?_method=DELETE" method="post">
                 <button>delete</button>
             </form>
-            <form action="/server/<%= server.name %>/<%= server.servercode_id %>/content/<%= Number(serverContent.id) %>/comment" method="post">
+            <form action="/server/<%= server.name %>/<%= server.servercode_id %>/content/<%= Number(serverContent.content_id) %>/comment" method="post">
                 <label for="">Comment Here</label>
                 <input type="text" name="comment">
                 <button>Comment</button>
@@ -28,7 +39,7 @@
         <% if (comments.length) { %>
             <div class="comments" style="display: flex; flex-direction: column; flex-wrap: wrap;">
                 <% for (let comment of comments) { %>
-                    <% if (comment.post_id === serverContent.id) { %>
+                    <% if (comment.post_id === serverContent.content_id) { %>
                         <p><%= comment.content %></p> 
                         <form action="/server/<%= server.name %>/comment/<%= comment.id %>?_method=DELETE" method="post">
                             <button>delete</button>

@@ -60,4 +60,25 @@ router.post(('/server/create/set_up'), (req, res) => {
     })
 })
 
+
+router.put('/post/upvote/:content_id/:serverName', (req,res) => {
+    const contentId = req.params.content_id
+    const serverName = req.params.serverName
+    const whoVoted = res.locals.currentUser.id
+    const sql = 'INSERT INTO votes (vote, who_voted, contents_id, server_name) VALUES ($1, $2, $3, $4);'
+    db.query(sql, [1, whoVoted, contentId, serverName], (err, result) => {
+        if (err) console.log(err)
+        res.redirect(`/server/${serverName}`)
+    })
+})
+router.put('/post/downvote/:content_id/:serverName', (req,res) => {
+    const contentId = req.params.content_id
+    const serverName = req.params.serverName
+    const whoVoted = res.locals.currentUser.id
+    const sql = 'INSERT INTO votes (vote, who_voted, contents_id, server_name) VALUES ($1, $2, $3, $4);'
+    db.query(sql, [-1, whoVoted, contentId, serverName], (err, result) => {
+        if (err) console.log(err)
+        res.redirect(`/server/${serverName}`)
+    })
+})
 module.exports = router
