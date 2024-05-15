@@ -3,6 +3,7 @@ const express = require('express')
 const db = require('../db')
 const router = express.Router()
 const bcrypt = require('bcrypt')
+const ensureLoggedIn = require('../middlewares/ensure_loggedIn')
 const saltRounds = 10
 
 router.get('/login', (req,res) => {
@@ -30,6 +31,11 @@ router.post('/login', (req,res) => {
             res.redirect('/')
         })
     })
+})
+
+router.delete('/logout', (req,res) => {
+    req.session.userId = null
+    res.redirect('/')
 })
 
 router.post('/sign_up', (req,res) => {

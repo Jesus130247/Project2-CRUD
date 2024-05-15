@@ -20,15 +20,12 @@ router.get((`/server/:leddit_website`), (req,res) => {
         if (!result.rows[0]) {
             return res.render('home', {errorMessage: "This server does not exist"})
         }
-        console.log('result.rows:', result.rows)
         let serverCodeId = result.rows[0].servercode_id
-        db.query(sql_getContent, [serverCodeId], (err, results) => {
+        db.query(sql_getContent, [serverCodeId], (err, contentResults) => {
             if (err) console.log(err)
-            console.log(results.rows[0])
             db.query(sql_getComments, [serverCodeId], (err, commentResults) => {
                 if (err) console.log(err)
-                console.log('comments length:', commentResults.rows.length)
-                res.render('personal_server', {server: result.rows[0], serverContents: results.rows, comments: commentResults.rows})
+                res.render('personal_server', {server: result.rows[0], serverContents: contentResults.rows, comments: commentResults.rows})
             })
         })
     })
@@ -41,8 +38,8 @@ router.post('/server/content/:leddit_website/:id', ensureLoggedIn, (req,res) => 
     let content = req.body.content
     let imageUrl = req.body.image_url
     let user_name = res.locals.currentUser["username"]
-    const sql_content = 'INSERT INTO content_for_servers (content, serverCode_id, image_url, user_id, title) values ($1, $2, $3, $4, $5)'
-    db.query(sql_content, [content, serverId, imageUrl, user_name, title], (err, result) => {
+    const sql_content = 'INSERT INTO content_for_servers (content, serverCode_id, image_url, user_id, title, votes) values ($1, $2, $3, $4, $5, $6)'
+    db.query(sql_content, [content, serverId, imageUrl, user_name, title, 0], (err, result) => {
         if (err) console.log(err)
         console.log('Content added successfully to table content_for_server')
         res.redirect(`/server/${serverName}`)

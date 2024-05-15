@@ -39,18 +39,23 @@ ALTER TABLE servers ADD COLUMN b_color TEXT;
 ALTER TABLE servers ADD COLUMN about TEXT;
 ALTER TABLE servers ADD COLUMN main_image TEXT;
 ALTER TABLE servers ADD COLUMN text_color TEXT;
+ALTER TABLE content_for_servers DROP COLUMN user_id;
+ALTER TABLE content_for_servers ADD COLUMN user_name TEXT;
 
+CREATE TABLE votes (
+    id SERIAL PRIMARY KEY,
+    vote INTEGER,
+    who_voted INTEGER,
+    content_id INTEGER,
+    UNIQUE(who_voted, content_id)
+);
 
 -- done since last commmit:
--- title/image/content when creating posts
--- added logout button
--- make it so users can comment on posts, and delete those comments
--- blocking users from creating / deleting posts without a login.
--- blocking users from creating / deleting comments without a login. 
--- having more ui options when creating a server
+-- vote buttons work
 
 -- working on:
--- make it os users can upvote/downvote
+-- make it so up/down voting stays after refresh
+-- make it so a user can only up/down vote once
 -- deleting and editing servers
 -- stop users from creating/editing/deleting servers without a login.
 -- creating favourite servers: quick links to servers you like
