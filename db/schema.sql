@@ -32,29 +32,33 @@ CREATE TABLE comments (
 
 -- new PSQL (once updated in render, add to the correct location)
 
-ALTER TABLE content_for_servers ADD COLUMN user_id TEXT UNIQUE;
+ALTER TABLE content_for_servers ADD COLUMN user_id TEXT;
 ALTER TABLE content_for_servers ADD COLUMN title TEXT;
+ALTER TABLE comments ADD COLUMN post_id INTEGER;
+ALTER TABLE servers ADD COLUMN b_color TEXT;
+ALTER TABLE servers ADD COLUMN about TEXT;
+ALTER TABLE servers ADD COLUMN main_image TEXT;
+ALTER TABLE servers ADD COLUMN text_color TEXT;
 
 
--- done today:
--- made it so the user who uploads content can be identified. "uploaded by user: example"
--- made it so you can delete posts on servers
+-- done since last commmit:
+-- title/image/content when creating posts
+-- added logout button
+-- make it so users can comment on posts, and delete those comments
+-- blocking users from creating / deleting posts without a login.
+-- blocking users from creating / deleting comments without a login. 
+-- having more ui options when creating a server
 
 -- working on:
--- having more options when creating posts
--- make it so users can comment on posts
--- having more ui options when creating a server
 -- make it os users can upvote/downvote
-
 -- deleting and editing servers
--- blocking users from editing, deleting posts without a login. and stopping users from creating/editing/deleting servers without a login.
+-- stop users from creating/editing/deleting servers without a login.
 -- creating favourite servers: quick links to servers you like
--- making it so that users can only edit/delete a post on a server or the server itself if they are "admin" of that server
-
 -- style everything
 
 -- extra if i have time
+-- make it so users can comment on comments of posts
+-- making it so that users can only edit/delete a post on a server or the server itself if they are "admin" of that server
 -- make it so that users can add friends 
 -- make it so that users upload images, and not urls (takes adjusting the form in personal_server.ejs)
--- make it so that content on servers can be editing by the user the uploaded it, and by admin users
--- make it so users can comment on comments of posts
+-- make it so that content on servers can only be edited by the user that uploaded it, and by admin users

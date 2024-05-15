@@ -32,8 +32,8 @@ app.use(setCurrentUser)
 app.use(homeRouter)
 app.use(sessionRouter)
 app.use(serverRouter)
-app.use(editRouter)
 app.use(ensureLoggedIn)
+app.use(editRouter)
 
 
 app.listen(port, (req, res) => {

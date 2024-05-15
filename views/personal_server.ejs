@@ -1,5 +1,7 @@
 <%- contentFor('body') %>
-<h1>Welcome to L/<%= server.name %></h1>
+<div class="body" style="height: 100vh; background-color: <%= server.b_color %>; color: <%= server.text_color %>;">
+    <h1>Welcome to L/<%= server.name %></h1>
+<img src="<%= server.main_image %>" alt="" style="height: 150px; width: 800px;">
 
 <% for (let serverContent of serverContents) { %>
     <div class="contentBox" style="border: solid red; display: flex;">
@@ -12,14 +14,34 @@
             <form action="/server/<%= server.name %>/content/<%= serverContent.id %>?_method=DELETE" method="post">
                 <button>delete</button>
             </form>
+            <form action="/server/<%= server.name %>/<%= server.servercode_id %>/content/<%= Number(serverContent.id) %>/comment" method="post">
+                <label for="">Comment Here</label>
+                <input type="text" name="comment">
+                <button>Comment</button>
+            </form>
             <p>Uploaded by User: <%= serverContent.user_id %></p>
         </aside>
+        <% if (comments.length) { %>
+            <div class="comments" style="display: flex; flex-direction: column; flex-wrap: wrap;">
+                <% for (let comment of comments) { %>
+                    <% if (comment.post_id === serverContent.id) { %>
+                        <p><%= comment.content %></p> 
+                        <form action="/server/<%= server.name %>/comment/<%= comment.id %>?_method=DELETE" method="post">
+                            <button>delete</button>
+                        </form>
+                    <% } %>
+                <% } %>
+            </div>
+        <% } %>
     </div>
 <% } %>
 
 <script defer src="/toggleVisibilityScript.js"></script>
 
+</div>
+
 <%- contentFor('aside') %>
+<p><%= server.about %></p>
 <div class="plus" style="text-align: center;">
     <button class="display_create">+ CREATE A POST</button>
 </div>
