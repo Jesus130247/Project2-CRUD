@@ -10,7 +10,7 @@
 <body>
     <header>
         <div class="left_header" style="display: flex;">
-            <img src="../images/LEDDIT.png" alt="img" style="width: 30px; height: 30px;">
+            <img src="/images/LEDDIT.png" alt="leddit image" style="width: 40px; height: 40px;">
             <a href="/"><h3 style="color: red;">LEDDIT</h3>
                 <div class="user">Current User:
                     <% if (!currentUser.username) { %>
@@ -22,7 +22,7 @@
             </a>
         </div>
         <form action="/getSearchValue" method="post">
-            <input type="text" value="Search LEDDIT" name="search">
+            <input type="text" placeholder="Search LEDDIT" name="search">
             <button>Search</button>
         </form>
         <nav>
@@ -40,6 +40,7 @@
             <%- body %>
         </div>
         <aside>
+            <%- aside %>
             This is the section that goes aside
         </aside>
     </div>

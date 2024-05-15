@@ -1,6 +1,9 @@
+<%- contentFor('body') %>
 <h2>CRUD PROJECT HOME PAGE</h2>
 <% if (locals.errorMessage) { %>
     <p class="error"><%= errorMessage %></p>
 <% } %>
 <p>Here are the contents for this crud project</p>
 <p>This section should contain popular posts from servers that the user follows (prioritise favourites?)</p>
+
+<%- contentFor('aside') %>

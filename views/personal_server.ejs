@@ -1,20 +1,46 @@
-<h1>This is the location of server: <%= server.name %></h1>
-<form action="/server/content/<%= server.name %>/<%= server.servercode_id %>" method="post">
-    <label for="">Say something!</label>
-    <input type="text" name="content">
-    <label for="">Would you like to add an image to this?</label>
-    <input type="text" name="image_url">
-    <button>Add</button>
-</form>
+<%- contentFor('body') %>
+<h1>Welcome to L/<%= server.name %></h1>
+
 <% for (let serverContent of serverContents) { %>
     <div class="contentBox" style="border: solid red; display: flex;">
         <section>
+            <h4><%= serverContent.title %></h4>
             <img src="<%= serverContent.image_url %>" alt="image from server" style="max-width: 150px;">
             <p><%= serverContent.content %></p>
         </section>
         <aside>
-            <button>delete</button>
-            <button>edit</button>
+            <form action="/server/<%= server.name %>/content/<%= serverContent.id %>?_method=DELETE" method="post">
+                <button>delete</button>
+            </form>
+            <p>Uploaded by User: <%= serverContent.user_id %></p>
         </aside>
     </div>
 <% } %>
+
+<script defer src="/toggleVisibilityScript.js"></script>
+
+<%- contentFor('aside') %>
+<div class="plus" style="text-align: center;">
+    <button class="display_create">+ CREATE A POST</button>
+</div>
+<div class="create" style="visibility: hidden;">
+    <form action="/server/content/<%= server.name %>/<%= server.servercode_id %>" method="post">
+
+        <label for="">TITLE</label>
+        <input type="text" name="title">
+        <br>
+        <label for="">CONTENT</label>
+        <input type="text" name="content">
+        <br>
+        <label for="">IMAGE</label>
+        <input type="text" name="image_url">
+        <br>
+        <button class="hide_this">Add</button>
+    </form>
+</div>
+
+
+<!-- <form action="/upload" method="post" enctype="multipart/form-data"> 
+    <input type="file" name="upload_file">
+    <button>submit</button>
+</form> -->

@@ -1,7 +1,12 @@
+<%- contentFor('body') %>
 <h2>TIME TO CREATE</h2>
-<p>Page used for Creating servers</p>
+<% if (locals.errorMessage) { %>
+    <p class="error"><%= errorMessage %></p>
+<% } %>
 <form action="/server/create/set_up" method="post">
     <label for="">What would you like to name your server? </label>
     <input type="text" name="server_name">
     <button>Create Server</button>
 </form>
+
+<%- contentFor('aside') %>

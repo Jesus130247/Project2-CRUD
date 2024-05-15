@@ -11,6 +11,9 @@ router.get(('/server/create'), (req, res)=>{
 router.post(('/server/create/set_up'), (req, res) => {
     let serverName = req.body.server_name
     serverName = serverName.toLowerCase()
+    if (serverName==='') {
+        return res.render('create', {errorMessage: "cannot create blank server"})
+    }
     let serverURL = 'l/'+req.body.server_name
     const sql_addServer = 'INSERT INTO servers (name, server_url) values ($1, $2);'
     db.query(sql_addServer, [serverName, serverURL], (err, result) => {
@@ -42,36 +45,28 @@ router.get((`/server/:leddit_website`), (req,res) => {
 router.post('/server/content/:leddit_website/:id', (req,res) => {
     let serverName = req.params.leddit_website
     let serverId = req.params.id
+    let title = req.body.title
     let content = req.body.content
     let imageUrl = req.body.image_url
-    const sql_content = 'INSERT INTO content_for_servers (content, serverCode_id, image_url) values ($1, $2, $3)'
-    db.query(sql_content, [content, serverId, imageUrl], (err, result) => {
+    let user_name = res.locals.currentUser["username"]
+    const sql_content = 'INSERT INTO content_for_servers (content, serverCode_id, image_url, user_id, title) values ($1, $2, $3, $4, $5)'
+    db.query(sql_content, [content, serverId, imageUrl, user_name, title], (err, result) => {
         if (err) console.log(err)
         console.log('Content added successfully to table content_for_server')
-        res.redirect(`server/${serverName}`)
-
+        res.redirect(`/server/${serverName}`)
     })
 })
 
-router.get('/server/delete', (req, res) => {
-    console.log('youre trying to delete a file!')
-    res.render('delete')
-})
-router.delete('/server/deleted', (req,res) => {
-    console.log('you deleted a file!')
-    res.redirect('/')
-})
+
 router.get(('/server/favourties'), (req,res) => {
     res.render('favourites')
 })
 
 
-
-
-
-
-
 router.post('/getSearchValue', (req,res) => {
+    if (req.body.search==='') {
+        return res.render('home', {errorMessage: "This server does not exist"})
+    }
     res.redirect(`/server/${req.body.search}`)
 })
 
