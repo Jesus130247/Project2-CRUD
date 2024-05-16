@@ -1,9 +1,14 @@
 <%- contentFor('body') %>
-<h2>CRUD PROJECT HOME PAGE</h2>
+<h2>LEDDIT PROJECT HOME PAGE</h2>
 <% if (locals.errorMessage) { %>
     <p class="error"><%= errorMessage %></p>
 <% } %>
-<p>Here are the contents for this crud project</p>
-<p>This section should contain popular posts from servers that the user follows (prioritise favourites?)</p>
+<p>Here are some servers to choose from <br>
+    OR <br>
+    Look up another server
+</p>
+<% for (let server of servers) { %>
+    <p style="font-size: 2rem;"><a href="/server/<%= server.name %>"><%= server.name %></a></p>
+<% } %>
 
 <%- contentFor('aside') %>

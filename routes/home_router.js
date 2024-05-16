@@ -5,7 +5,21 @@ const router = express.Router()
 
 
 router.get('/', (req, res) => {
-    res.render('home')
+    db.query('SELECT * FROM servers;', (err, result) => {
+        if (err) console.log(err)
+        let servers = []
+        if (result.rows.length < 5) {
+            for (let server of result.rows) {
+                servers.push(server)
+            }
+        } else {
+            for (let i=0; i<5; i++) {
+                servers.push(result.rows[i])
+            }
+        }
+        console.log(servers)
+        res.render('home', {servers})
+    })
 })
 
 router.get('/about', (req, res) => {
@@ -18,8 +32,11 @@ router.get('/similar_servers/:input', (req,res) => {
     console.log(trimmedInput)
     sql = `SELECT * FROM servers WHERE name LIKE '%${trimmedInput}%';`
     db.query(sql, (err, likeResult) => {
-        console.log(likeResult.rows)
-        res.render('similar_servers', {similar_servers: likeResult.rows})
+        if (likeResult.rows.length === 0) {
+            return res.render('home', {errorMessage: 'This server does not exist'})
+        } else {
+            return res.render('similar_servers', {similar_servers: likeResult.rows})
+        }
     })
 })
 
