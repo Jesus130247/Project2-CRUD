@@ -47,8 +47,17 @@ CREATE TABLE votes (
     who_voted INTEGER,
     contents_id INTEGER,
     server_name TEXT,
-    UNIQUE(who_voted, contents_id)
+    UNIQUE(who_voted, contents_id),
+    FOREIGN KEY (who_voted) REFERENCES users (id) ON DELETE CASCADE,
+    FOREIGN KEY (server_id) REFERENCES servers (serverCode_id) ON DELETE CASCADE
 );
+
+CREATE TABLE favourites (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER,
+    favourite TEXT
+);
+
 -- psql to select everything, using join... cut out last part to dodge users
 `
 SELECT * FROM votes 
@@ -71,12 +80,14 @@ ON servers.users_id = users.id;
 
 -- done since last commmit:
 -- vote buttons work
-
--- #working on:
 -- make it so up/down voting stays after refresh
 -- make it so a user can only up/down vote once
--- deleting and editing servers
--- creating favourite servers: quick links to servers you like
+-- made it so you can replace your vote
+-- deleting and editing servers -> only for user that created server
+
+-- #working on:
+-- favourites
+-- favicon
 -- style everything
 
 -- #extra if i have time

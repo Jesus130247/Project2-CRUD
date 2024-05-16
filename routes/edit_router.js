@@ -48,15 +48,17 @@ router.post(('/server/create/set_up'), (req, res) => {
     let about = req.body.server_about
     let backgroundColor = req.body.background_color
     let textColor = req.body.text_color
+    let userID = res.locals.currentUser.id
+    console.log(userID)
     if (serverName==='') {
         return res.render('create', {errorMessage: "cannot create blank server"})
     }
     let serverURL = 'l/'+req.body.server_name
-    const sql_addServer = 'INSERT INTO servers (name, server_url, main_image, about, b_color, text_color) values ($1, $2, $3, $4, $5, $6);'
-    db.query(sql_addServer, [serverName, serverURL, image, about, backgroundColor, textColor], (err, result) => {
+    const sql_addServer = 'INSERT INTO servers (name, users_id ,server_url, main_image, about, b_color, text_color) values ($1, $2, $3, $4, $5, $6, $7);'
+    db.query(sql_addServer, [serverName, userID, serverURL, image, about, backgroundColor, textColor], (err, result) => {
         if (err) console.log(err)
         console.log(`server created ${serverName} @@ ${serverURL}`)
-        res.redirect('/server/create')
+        res.redirect(`/server/${serverName}`)
     })
 })
 
@@ -65,20 +67,58 @@ router.put('/post/upvote/:content_id/:serverName', (req,res) => {
     const contentId = req.params.content_id
     const serverName = req.params.serverName
     const whoVoted = res.locals.currentUser.id
-    const sql = 'INSERT INTO votes (vote, who_voted, contents_id, server_name) VALUES ($1, $2, $3, $4);'
-    db.query(sql, [1, whoVoted, contentId, serverName], (err, result) => {
+    const sql_check = `SELECT * FROM votes WHERE contents_id = $1 AND who_voted = $2;`
+    const sql_vote = 'INSERT INTO votes (vote, who_voted, contents_id, server_name) VALUES ($1, $2, $3, $4);'
+    db.query(sql_check, [contentId, whoVoted], (err, checkResults) => {
         if (err) console.log(err)
-        res.redirect(`/server/${serverName}`)
+        console.log('length', checkResults.rows.length)
+        if (checkResults.rows.length > 0) {
+            console.log("sql check done")
+            const sql_delete = `DELETE FROM votes WHERE contents_id = $1 AND who_voted = $2;`
+            db.query(sql_delete, [contentId, whoVoted], (err, deleteResults) => {
+                if (err) console.log(err)
+                console.log("sql delete area")
+                db.query(sql_vote, [1, whoVoted, contentId, serverName], (err, addResult) => {
+                    if (err) console.log(err)
+                    return res.redirect(`/server/${serverName}`)
+                })
+            })
+        } else {
+            db.query(sql_vote, [1, whoVoted, contentId, serverName], (err, addResult) => {
+                if (err) console.log(err)
+                console.log('eql check skipped')
+                return res.redirect(`/server/${serverName}`)
+            })
+        }
     })
 })
 router.put('/post/downvote/:content_id/:serverName', (req,res) => {
     const contentId = req.params.content_id
     const serverName = req.params.serverName
     const whoVoted = res.locals.currentUser.id
-    const sql = 'INSERT INTO votes (vote, who_voted, contents_id, server_name) VALUES ($1, $2, $3, $4);'
-    db.query(sql, [-1, whoVoted, contentId, serverName], (err, result) => {
+    const sql_check = `SELECT * FROM votes WHERE contents_id = $1 AND who_voted = $2;`
+    const sql_vote = 'INSERT INTO votes (vote, who_voted, contents_id, server_name) VALUES ($1, $2, $3, $4);'
+    db.query(sql_check, [contentId, whoVoted], (err, checkResults) => {
         if (err) console.log(err)
-        res.redirect(`/server/${serverName}`)
+        console.log('length', checkResults.rows.length)
+        if (checkResults.rows.length > 0) {
+            console.log("sql check done")
+            const sql_delete = `DELETE FROM votes WHERE contents_id = $1 AND who_voted = $2;`
+            db.query(sql_delete, [contentId, whoVoted], (err, deleteResults) => {
+                if (err) console.log(err)
+                console.log("sql delete area")
+                db.query(sql_vote, [-1, whoVoted, contentId, serverName], (err, addResult) => {
+                    if (err) console.log(err)
+                    return res.redirect(`/server/${serverName}`)
+                })
+            })
+        } else {
+            db.query(sql_vote, [-1, whoVoted, contentId, serverName], (err, addResult) => {
+                if (err) console.log(err)
+                console.log('eql check skipped')
+                return res.redirect(`/server/${serverName}`)
+            })
+        }
     })
 })
 module.exports = router

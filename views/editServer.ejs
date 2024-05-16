@@ -1,0 +1,22 @@
+<%- contentFor('body') %>
+<h2>TIME TO EDIT</h2>
+<form action="/server/edit/<%= server.servercode_id %>?_method=put" method="post">
+    <label for="">Change Name?</label>
+    <input type="text" name="server_name" value="<%= server.name %>">
+    <br>
+    <label for="">Change Background Color?</label>
+    <input type="text" name="background_color" value="<%= server.b_color %>">
+    <br>
+    <label for="">Change Text Color? </label>
+    <input type="text" name="text_color" value="<%= server.text_color %>">
+    <br>
+    <label for="">Change server image? </label>
+    <input type="text" name="server_image" value="<%= server.main_img %>">-> (Image resized 800x150 px)
+    <br>
+    <label for="">Change about section? </label>
+    <input type="text" name="server_about" value="<%= server.about %>">
+    <br>
+    <button>Edit Server</button>
+</form>
+
+<%- contentFor('aside') %>

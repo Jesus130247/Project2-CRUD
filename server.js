@@ -13,6 +13,7 @@ const sessionRouter = require('./routes/session_router.js')
 const homeRouter = require('./routes/home_router.js')
 const serverRouter = require('./routes/server_router.js')
 const editRouter = require('./routes/edit_router.js')
+const editServerRouter = require('./routes/delete_edit_servers_router.js')
 const setCurrentUser = require('./middlewares/set_current_user.js')
 
 app.set('view engine', 'ejs')
@@ -34,6 +35,7 @@ app.use(sessionRouter)
 app.use(serverRouter)
 app.use(ensureLoggedIn)
 app.use(editRouter)
+app.use(editServerRouter)
 
 
 app.listen(port, (req, res) => {

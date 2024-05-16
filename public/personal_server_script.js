@@ -18,19 +18,3 @@ function hide() {
     createDiv.style.visibility = 'hidden'
 }
 //
-
-// section for up and down voting
-const votes = document.querySelectorAll('.vote span')
-console.log(votes)
-const upVoteBtns = document.querySelectorAll('.upVote')
-const downVoteBtns = document.querySelectorAll('.downVote')
-console.log(upVoteBtns, downVoteBtns)
-
-for (let voteButtons=0; voteButtons<votes.length; voteButtons++) {
-    upVoteBtns[voteButtons].addEventListener('click', () => {
-        votes[voteButtons].innerText = Number(votes[voteButtons].innerText)+1
-    })
-    downVoteBtns[voteButtons].addEventListener('click', () => {
-        votes[voteButtons].innerText = Number(votes[voteButtons].innerText)-1
-    })
-}

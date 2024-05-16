@@ -14,7 +14,9 @@
                 <span>
                     <% let finalVote = 0 %>
                     <% for (let vote of votes) { %>
-                        <% finalVote+=vote.vote %>
+                        <% if (vote.contents_id === serverContent.content_id) { %> 
+                            <% finalVote+=vote.vote %>                            
+                        <% } %> 
                     <% } %>
                     <%= finalVote %>
                 </span>
@@ -72,6 +74,19 @@
         <button class="hide_this">Add</button>
     </form>
 </div>
+<div class="update_server">
+    <% if (currentUser.username) { %>
+        <% if (currentUser.id === server.users_id) { %>
+            <form action="/server/<%= server.servercode_id%>/edit" method="get">
+                <button>Update your Server</button>
+            </form>
+            <form action="/server/delete/<%= server.servercode_id%>/<%= server.name %>" method="get">
+                <button>Delete your Server</button>
+            </form>
+        <% } %>
+    <% } %>
+</div>
+
 
 <script defer src="/personal_server_script.js"></script>
 
