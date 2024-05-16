@@ -55,7 +55,11 @@ CREATE TABLE votes (
 CREATE TABLE favourites (
     id SERIAL PRIMARY KEY,
     user_id INTEGER,
-    favourite TEXT
+    server_id INTEGER,
+    server_name TEXT,
+    UNIQUE(user_id, server_id),
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    FOREIGN KEY (server_id) REFERENCES servers (servercode_id) ON DELETE CASCADE
 );
 
 -- psql to select everything, using join... cut out last part to dodge users
@@ -75,18 +79,15 @@ ON servers.users_id = users.id;
 
 `
 
-
 -- new PSQL (once updated in render, add to the correct location)
 
 -- done since last commmit:
--- vote buttons work
--- make it so up/down voting stays after refresh
--- make it so a user can only up/down vote once
--- made it so you can replace your vote
--- deleting and editing servers -> only for user that created server
+-- added favourites button
+-- added favourites to the layout menu
+-- made it so that if you click add post, you can stop that process
+-- eb able to delete your favouries -> BUG: it deletes, but doesnt reload page properly.
 
 -- #working on:
--- favourites
 -- favicon
 -- style everything
 

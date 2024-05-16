@@ -9,6 +9,9 @@ displayBtn.addEventListener('click', display)
 const hideBtn = document.querySelector('.hide_this')
 hideBtn.addEventListener('click', hide)
 
+const stopBtn = document.querySelector('.stop_create')
+stopBtn.addEventListener('click', hide)
+
 function display() {
     plusDiv.style.visibility = 'hidden'
     createDiv.style.visibility = 'visible'

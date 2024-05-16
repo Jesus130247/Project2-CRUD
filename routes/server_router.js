@@ -52,17 +52,22 @@ router.post('/server/content/:leddit_website/:id', ensureLoggedIn, (req,res) => 
     })
 })
 
-
-router.get(('/server/favourties'), (req,res) => {
-    res.render('favourites')
-})
-
-
 router.post('/getSearchValue', (req,res) => {
     if (req.body.search==='') {
         return res.render('home', {errorMessage: "This server does not exist"})
     }
     res.redirect(`/server/${req.body.search}`)
+})
+
+router.post('/server/add_to_favourites/:server_name/:server_id', ensureLoggedIn, (req,res) => {
+    let user_id = res.locals.currentUser.id
+    let server_id = req.params.server_id
+    let server_name = req.params.server_name
+    sql_favs = 'INSERT INTO favourites (user_id, server_id, server_name) VALUES ($1, $2, $3);'
+    db.query(sql_favs, [user_id, server_id, server_name], (err, favResult) => {
+        if (err) console.log(err)
+        res.redirect(`/server/${server_name}`)
+    })
 })
 
 module.exports = router

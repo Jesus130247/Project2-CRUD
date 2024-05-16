@@ -38,10 +38,21 @@
     </header>
 
     <div class="container">
-        <ul>
-            <li><a href="/server/create">CREATE SERVER</a></li>
-            <li><a href="/server/favourties">FAVOURITE SERVERS</a></li>
-        </ul>
+        <div class="left">
+            <ul>
+                <li><a href="/server/create">CREATE SERVER</a></li>
+                <br>
+                <li><a href="/favourties">FAVOURITE SERVERS</a></li>
+                <br>
+                <div class="favourites_display">
+                    <% if (currentUser.username) { %>
+                        <% for (let fav of favs) { %>
+                            <a href="/server/<%= fav.server_name %>"><%= fav.server_name %></a>
+                        <% } %>
+                    <% } %>
+                </div>
+            </ul>
+        </div>
         <div class="body">
             <%- body %>
         </div>

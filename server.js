@@ -13,9 +13,10 @@ const sessionRouter = require('./routes/session_router.js')
 const homeRouter = require('./routes/home_router.js')
 const serverRouter = require('./routes/server_router.js')
 const editRouter = require('./routes/edit_router.js')
+const fav_router = require('./routes/fav_router.js')
 const editServerRouter = require('./routes/delete_edit_servers_router.js')
 const setCurrentUser = require('./middlewares/set_current_user.js')
-
+const getFavourites = require('./middlewares/display_favs.js')
 app.set('view engine', 'ejs')
 
 app.use(expressLayouts)
@@ -30,9 +31,11 @@ app.use(session({
     saveUnitialzed: true
 }))
 app.use(setCurrentUser)
+app.use(getFavourites)
 app.use(homeRouter)
 app.use(sessionRouter)
 app.use(serverRouter)
+app.use(fav_router)
 app.use(ensureLoggedIn)
 app.use(editRouter)
 app.use(editServerRouter)

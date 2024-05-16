@@ -56,6 +56,10 @@
 
 <%- contentFor('aside') %>
 <p><%= server.about %></p>
+<form action="/server/add_to_favourites/<%= server.name %>/<%= server.servercode_id %>" method="post">
+    <label for="">Add this server to your favourites</label>
+    <button>Add</button>
+</form>
 <div class="plus" style="text-align: center;">
     <button class="display_create">+ CREATE A POST</button>
 </div>
@@ -73,6 +77,7 @@
         <br>
         <button class="hide_this">Add</button>
     </form>
+    <button class="stop_create">Stop</button>
 </div>
 <div class="update_server">
     <% if (currentUser.username) { %>
