@@ -1,12 +1,14 @@
 <%- contentFor('body') %>
-<div class="delete_container" style="text-align: center; margin-top: 20%;">
-    <h1>DELETING SERVER</h1>
-    <form action="/server/<%= serverName %>" method="get">
-        <button style="padding: 20px; font-size: 2rem; font-weight: 700; border-radius: 20px;">GO BACK</button>
-    </form>
-    <div class="warning" style="font-size: 3rem; color: red; font-weight: 800;">ARE YOU SURE?</div>
-    <form action="/server/<%= server %>/delete?_method=delete" method="post">
-        <button style="padding: 20px; font-size: 2rem; font-weight: 700; border-radius: 20px;">DELETE</button>
-    </form>
+<div class="layoutBody">
+    <div class="delete_container">
+        <h1>DELETING SERVER</h1>
+        <form action="/server/<%= serverName %>" method="get">
+            <button class="deleteBtns">GO BACK</button>
+        </form>
+        <div class="warning">ARE YOU SURE?</div>
+        <form action="/server/<%= server %>/delete?_method=delete" method="post">
+            <button class="deleteBtns">DELETE</button>
+        </form>
+    </div>
 </div>
 <%- contentFor('aside') %>

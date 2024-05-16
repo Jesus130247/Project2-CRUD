@@ -8,7 +8,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE servers (
-    serverCode_id SERIAL PRIMARY KEY,
+    servercode_id SERIAL PRIMARY KEY,
     name TEXT,
     users_id  INTEGER,
     server_url TEXT UNIQUE,
@@ -21,13 +21,13 @@ CREATE TABLE servers (
 CREATE TABLE content_for_servers (
     content_id SERIAL PRIMARY KEY,
     content TEXT,
-    serverCode_id INTEGER,
+    servercode_id INTEGER,
     image_url TEXT,
     title TEXT,
     user_id INTEGER,
     user_name TEXT,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
-    FOREIGN KEY (serverCode_id) REFERENCES servers (serverCode_id) ON DELETE CASCADE
+    FOREIGN KEY (serverCode_id) REFERENCES servers (servercode_id) ON DELETE CASCADE
 );
 
 CREATE TABLE comments (
@@ -37,7 +37,7 @@ CREATE TABLE comments (
     server_id INTEGER NOT NULL,
     post_id INTEGER,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
-    FOREIGN KEY (server_id) REFERENCES servers (serverCode_id) ON DELETE CASCADE
+    FOREIGN KEY (server_id) REFERENCES servers (servercode_id) ON DELETE CASCADE
 );
 
 
@@ -49,7 +49,7 @@ CREATE TABLE votes (
     server_name TEXT,
     UNIQUE(who_voted, contents_id),
     FOREIGN KEY (who_voted) REFERENCES users (id) ON DELETE CASCADE,
-    FOREIGN KEY (server_id) REFERENCES servers (serverCode_id) ON DELETE CASCADE
+    FOREIGN KEY (contents_id) REFERENCES content_for_servers (content_id) ON DELETE CASCADE
 );
 
 CREATE TABLE favourites (
@@ -82,13 +82,17 @@ ON servers.users_id = users.id;
 -- new PSQL (once updated in render, add to the correct location)
 
 -- #working on:
--- if you search for a server that isnt there, you are given a list of similar servers to choose from
 -- favicon
 -- style everything
+
+-- bugs:
+--  - any logged in user can delete a post
+--  - any logged in user can delete a comment
+--  - can only add links as images, and not saved files
 
 -- #extra if i have time
 -- make it so users can comment on comments of posts
 -- add admin roles to servers
 -- add friends functionality
--- add iamges (not urls) (have some base code for this)
+-- add images (not urls) (have some base code for this)
 -- redirects you to page you were just on if you are moved for login feature

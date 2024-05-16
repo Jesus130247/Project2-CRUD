@@ -1,69 +1,73 @@
 <%- contentFor('body') %>
-<div class="body" style="height: 100vh; background-color: <%= server.b_color %>; color: <%= server.text_color %>;">
+<div class="serverBody" style="background-color: <%= server.b_color %>; color: <%= server.text_color %>;">
     <h1>Welcome to L/<%= server.name %></h1>
-<img src="<%= server.main_image %>" alt="" style="height: 150px; width: 800px;">
+    <img src="<%= server.main_image %>" alt="" style=" width: 500px;">
 
-<% for (let serverContent of serverContents) { %>
-    <div class="contentBox" style="border: solid red; display: grid; grid-template-columns: 2fr 1fr 1fr;">
-        <section>
-            <h4><%= serverContent.title %></h4>
-            <img src="<%= serverContent.image_url %>" alt="image from server" style="max-width: 150px;">
-            <p><%= serverContent.content %></p>
-            <p>Uploaded by User: <%= serverContent.user_id %></p>
-            <div class="vote">
-                <span>
-                    <% let finalVote = 0 %>
-                    <% for (let vote of votes) { %>
-                        <% if (vote.contents_id === serverContent.content_id) { %> 
-                            <% finalVote+=vote.vote %>                            
-                        <% } %> 
-                    <% } %>
-                    <%= finalVote %>
-                </span>
-                <form action="/post/upvote/<%= serverContent.content_id%>/<%= server.name %>?_method=put" method="post">
-                    <button class="upVote">up vote</button>
-                </form>
-                <form action="/post/downvote/<%= serverContent.content_id%>/<%= server.name %>?_method=put" method="post">
-                    <button class="downVote">down vote</button>
-                </form>
-            </div>
-        </section>
-        <aside>
-            <form action="/server/<%= server.name %>/content/<%= serverContent.content_id %>?_method=DELETE" method="post">
-                <button>delete</button>
-            </form>
-            <form action="/server/<%= server.name %>/<%= server.servercode_id %>/content/<%= Number(serverContent.content_id) %>/comment" method="post">
-                <label for="">Comment Here</label>
-                <input type="text" name="comment">
-                <button>Comment</button>
-            </form>
-        </aside>
-        <% if (comments.length) { %>
-            <div class="comments" style="display: flex; flex-direction: column; flex-wrap: wrap;">
-                <% for (let comment of comments) { %>
-                    <% if (comment.post_id === serverContent.content_id) { %>
-                        <p><%= comment.content %></p> 
-                        <form action="/server/<%= server.name %>/comment/<%= comment.id %>?_method=DELETE" method="post">
-                            <button>delete</button>
+    <% for (let serverContent of serverContents) { %>
+        <div class="postBox">
+            <section>
+                <h4><%= serverContent.title %></h4>
+                <img src="<%= serverContent.image_url %>" alt="image from server" style="max-width: 200px;">
+                <p><%= serverContent.content %></p>
+                <p>Uploaded by User: <%= serverContent.user_name %></p>
+                <div class="vote">
+                    <span>
+                        <% let finalVote = 0 %>
+                        <% for (let vote of votes) { %>
+                            <% if (vote.contents_id === serverContent.content_id) { %> 
+                                <% finalVote+=vote.vote %>                            
+                            <% } %> 
+                        <% } %>
+                        <%= finalVote %>
+                    </span>
+                    <form action="/post/upvote/<%= serverContent.content_id%>/<%= server.name %>?_method=put" method="post">
+                        <button class="upVote"><span class="emoji">&#8593</span></button>
+                    </form>
+                    <form action="/post/downvote/<%= serverContent.content_id%>/<%= server.name %>?_method=put" method="post">
+                        <button class="downVote"><span class="emoji">&#8595;</span></button>
+                    </form>
+                </div>
+                <aside>
+                    <% if (currentUser.id === server.users_id) { %>
+                        <form action="/server/<%= server.name %>/content/<%= serverContent.content_id %>?_method=DELETE" method="post">
+                            <button>Delete Post</button>
                         </form>
+                    <% } %>
+                </aside>
+            </section>
+            <div class="comments">
+                <form action="/server/<%= server.name %>/<%= server.servercode_id %>/content/<%= Number(serverContent.content_id) %>/comment" method="post">
+                    <input class="commentTextBox" type="text" name="comment" placeholder="Comment Here">
+                </form>
+                <% if (comments.length) { %>
+                    <% for (let comment of comments) { %>
+                        <% if (comment.post_id === serverContent.content_id) { %>
+                            <div class="commentDiv">
+                                <p class="commentText"><%= comment.content %></p> 
+                                <form action="/server/<%= server.name %>/comment/<%= comment.id %>?_method=DELETE" method="post">
+                                    <% if (comment.user_id === currentUser.id) { %>
+                                        <button>Delete Comment</button>
+                                    <% } %>
+                                </form>
+                            </div>
+                        <% } %>
                     <% } %>
                 <% } %>
             </div>
-        <% } %>
-    </div>
-<% } %>
+        </div>
+    <% } %>
 </div>
 
 <%- contentFor('aside') %>
-<p><%= server.about %></p>
+<p style="font-weight: 600;"><%= server.about %></p>
 <form action="/server/add_to_favourites/<%= server.name %>/<%= server.servercode_id %>" method="post">
     <label for="">Add this server to your favourites</label>
-    <button>Add</button>
+    <button class="addFav" >Add</button>
 </form>
-<div class="plus" style="text-align: center;">
+<div class="plus">
     <button class="display_create">+ CREATE A POST</button>
 </div>
-<div class="create" style="visibility: hidden;">
+<div class="create">
     <form action="/server/content/<%= server.name %>/<%= server.servercode_id %>" method="post">
 
         <label for="">TITLE</label>

@@ -1,17 +1,22 @@
 <%- contentFor('body') %>
-<div class="similar">
-    <h2>CRUD PROJECT HOME PAGE</h2>
-    <h3>Could not find your server</h3>
-    <p>
-        Here is a list of servers with similar names <br> 
-        If your server is not here, it means it probably doesnt exist. <br> 
-        Try searching for another server.
-    </p>
-    <% for (let server of similar_servers) { %>
-        <p style="font-size: 2rem;"><a href="/server/<%= server.name %>"><%= server.name %></a></p>
-    <% } %>
+<div class="layoutBody">
+    <div class="similar">
+        <h2>LEDDIT PROJECT HOME PAGE</h2>
+        <h3>Could not find your server</h3>
+        <% if (locals.errorMessage) { %>
+            <p class="error"><%= errorMessage %></p>
+        <% } else { %>
+            <p>
+                Here is a list of servers with similar names <br> 
+                If your server is not here, it means it probably doesnt exist. <br> 
+                Try searching for another server.
+            </p>
+            <% for (let server of similar_servers) { %>
+                <p class="serverText"><a href="/server/<%= server.name %>"><%= server.name %></a></p>
+            <% } %>
+        <% } %>
+    </div>
 </div>
-
 
 
 

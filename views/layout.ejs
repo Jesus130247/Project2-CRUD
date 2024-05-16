@@ -5,34 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/reset.css">
     <link rel="stylesheet" href="/style.css">
+    <link rel="icon" href="/LEDDIT.ico" type="image/x-icon">
     <title>LEDDIT</title>
 </head>
 <body>
     <header>
-        <div class="left_header" style="display: flex;">
-            <img src="/images/LEDDIT.png" alt="leddit image" style="width: 40px; height: 40px;">
-            <a href="/"><h3 style="color: red;">LEDDIT</h3>
-                <div class="user">Current User:
-                    <% if (!currentUser.username) { %>
-                        <%= 'Anonymuos' %> 
-                    <% } else { %>
-                        <%= currentUser.username %>
-                    <% } %>
-                </div>
-            </a>
+        <div class="left_header">
+            <a href="/"><img src="/images/LEDDIT.png" alt="leddit image"></a>
+            <div class="headerText">
+                <a href="/"><h3 class="leddit">LEDDIT</h3>
+                    <div class="user">Current User:
+                        <% if (!currentUser.username) { %>
+                            <%= 'Anonymuos' %> 
+                        <% } else { %>
+                            <%= currentUser.username %>
+                        <% } %>
+                    </div>
+                </a>
+            </div>
         </div>
         <form action="/getSearchValue" method="post">
-            <input type="text" placeholder="Search LEDDIT" name="search">
-            <button>Search</button>
+            <input class='searchBar' type="text" placeholder="Search LEDDIT" name="search">
         </form>
-        <nav>
-            <a href="/about" style="color: rgb(238, 255, 0);">ABOUT</a>
+        <nav class="headerBtns">
+            <a class="headerlink" href="/about">ABOUT</a>
             <% if (isLoggedIn) { %>
                 <form action="/logout?_method=delete" method="post">
-                  <button>logout</button>
+                  <button class="logout">LOGOUT</button>
                 </form> 
               <% } else { %>
-                <a href="/login" style="color: rgb(238, 255, 0);">LOGIN</a>
+                <a  class="headerlink" href="/login">LOGIN</a>
               <% } %>
         </nav>
     </header>
@@ -40,30 +42,28 @@
     <div class="container">
         <div class="left">
             <ul>
-                <li><a href="/server/create">CREATE SERVER</a></li>
+                <li class="createServerLink"><a href="/server/create"><span class="emoji">&#128640;</span> CREATE SERVER</a></li>
                 <br>
-                <li><a href="/favourties">FAVOURITE SERVERS</a></li>
+                <li><a href="/favourties"><span class="emoji">👇</span> FAVOURITE SERVERS</a></li>
                 <br>
                 <div class="favourites_display">
                     <% if (currentUser.username) { %>
                         <% for (let fav of favs) { %>
-                            <a href="/server/<%= fav.server_name %>"><%= fav.server_name %></a>
+                            <a href="/server/<%= fav.server_name %>">L/<%= fav.server_name %></a>
                         <% } %>
                     <% } %>
                 </div>
             </ul>
         </div>
-        <div class="body">
+        <div>
             <%- body %>
         </div>
-        <aside>
+        <aside class="aside_section">
             <%- aside %>
-            This is the section that goes aside
         </aside>
     </div>
-
     <footer>
-        footer section
+        Created by Leonardo Manteit 16/05/2024
     </footer>
 </body>
 </html>

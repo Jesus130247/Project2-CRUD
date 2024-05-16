@@ -40,7 +40,7 @@ router.delete('/server/:servercode_id/delete', (req,res) => {
     sql_delete = "DELETE FROM servers WHERE servercode_id = $1;"
     db.query(sql_delete, [req.params.servercode_id], (err, result) => {
         if (err) console.log(err)
-        res.render('home', {errorMessage: 'You have deleted your server'})
+        res.render('home', {servers: [], errorMessage: 'You have deleted your server'})
     })
 })
 

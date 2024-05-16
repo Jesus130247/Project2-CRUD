@@ -15,4 +15,5 @@ function displayFavourites(req, res, next) {
         next()
     })
 }
+
 module.exports = displayFavourites

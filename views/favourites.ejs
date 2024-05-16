@@ -1,14 +1,18 @@
 <%- contentFor('body') %>
-<h1>HERE ARE YOUR FAVOURITES</h1>
-<h4>You can edit your list</h4>
-<% if (currentUser.username) { %>
-    <% for (let fav of favs) { %>
-        <p><a href="/server/<%= fav.server_name %>"><%= fav.server_name %></a></p>
-        <form action="/remove/favourite/<%= fav.id %>" method="post">
-            <button>Remove Favourite</button>
-        </form>
+<div class="layoutBody">
+    <h1>HERE ARE YOUR FAVOURITES</h1>
+    <h4>You can edit your list</h4>
+    <% if (currentUser.username) { %>
+        <% for (let fav of favs) { %>
+            <div class="favDiv">
+                <div><a href="/server/<%= fav.server_name %>">L/<%= fav.server_name %><span class="emoji">&#8594;</span></a></div>
+                <form action="/remove/favourite/<%= fav.id %>" method="post">
+                    <button>Remove from favourites</button>
+                </form>
+            </div>
+        <% } %>
+    <% } else { %>
+        <p>You're not logged in. login to get add servers to your list of favourites</p>
     <% } %>
-<% } else { %>
-    <p>You're not logged in. login to get add servers to your list of favourites</p>
-<% } %>
-<%- contentFor('aside') %>
+    <%- contentFor('aside') %>
+</div>

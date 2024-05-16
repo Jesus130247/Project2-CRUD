@@ -27,11 +27,12 @@ router.get((`/server/:leddit_website`), (req,res) => {
             db.query(sql_getComments, [serverCodeId], (err, commentResults) => {
                 db.query(sql_votes, [serverName], (err, voteResults) => {
                     if (err) console.log(err)
+                    console.log(commentResults.rows)
+                    console.log(contentResults.rows)
                     console.log('votes', voteResults.rows)
                     res.render('personal_server', {server: result.rows[0], serverContents: contentResults.rows, comments: commentResults.rows, votes: voteResults.rows})
                 })
             })
-
         })
     })
 })
@@ -50,13 +51,6 @@ router.post('/server/content/:leddit_website/:id', ensureLoggedIn, (req,res) => 
         console.log('Content added successfully to table content_for_server')
         res.redirect(`/server/${serverName}`)
     })
-})
-
-router.post('/getSearchValue', (req,res) => {
-    if (req.body.search==='') {
-        return res.render('home', {errorMessage: "This server does not exist"})
-    }
-    res.redirect(`/server/${req.body.search}`)
 })
 
 router.post('/server/add_to_favourites/:server_name/:server_id', ensureLoggedIn, (req,res) => {

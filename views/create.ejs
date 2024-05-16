@@ -1,26 +1,28 @@
 <%- contentFor('body') %>
-<h2>TIME TO CREATE</h2>
-<% if (locals.errorMessage) { %>
-    <p class="error"><%= errorMessage %></p>
-<% } %>
-<form action="/server/create/set_up" method="post">
-    <label for="">What would you like to name your server?</label>
-    <input type="text" name="server_name">
-    <br>
-    <label for="">What would you like your server background color to be?</label>
-    <input type="text" name="background_color">-> Default is Gray
-    <br>
-    <label for="">What will your text color be? </label>
-    <input type="text" name="text_color">-> Default is black
-    <br>
-    <label for="">Would you like a special server image? </label>
-    <input type="text" name="server_image">
-    -> (Image resized 800x150 px)
-    <br>
-    <label for="">What will your server be about? </label>
-    <input type="text" name="server_about">
-    <br>
-    <button>Create Server</button>
-</form>
+<div class="createBody">
+    <h1>TIME TO CREATE</h1>
+    <% if (locals.errorMessage) { %>
+        <p class="error"><%= errorMessage %></p>
+    <% } %>
+    <form action="/server/create/set_up" method="post">
+        <label for="">What would you like to name your server?</label>
+        <input type="text" name="server_name">
+        <br>
+        <label for="">What would you like your server background color to be? <span class="emoji">&#8594;</span> Default is Gray</label>
+        <input type="text" name="background_color">
+        <br>
+        <label for="">What will your text color be? <span class="emoji">&#8594;</span> Default is black</label>
+        <input type="text" name="text_color">
+        <br>
+        <label for="">Would you like a special server image? <span class="emoji">&#8594;</span> Width will be rescalled to 500px</label>
+        <input type="text" name="server_image">
+        <br>
+        <label for="">What will your server be about? </label>
+        <input type="text" name="server_about">
+        <br>
+        <button>Create Server</button>
+    </form>
+</div>
+
 
 <%- contentFor('aside') %>

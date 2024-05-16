@@ -1,14 +1,18 @@
 <%- contentFor('body') %>
-<h2>LEDDIT PROJECT HOME PAGE</h2>
-<% if (locals.errorMessage) { %>
-    <p class="error"><%= errorMessage %></p>
-<% } %>
-<p>Here are some servers to choose from <br>
-    OR <br>
-    Look up another server
-</p>
-<% for (let server of servers) { %>
-    <p style="font-size: 2rem;"><a href="/server/<%= server.name %>"><%= server.name %></a></p>
-<% } %>
+<div class="layoutBody">
+    <h1>Welcome to the LEDDIT Project</h1>
+    <% if (locals.errorMessage) { %>
+        <p class="error"><%= errorMessage %></p>
+    <% } else { %>
+        <p class="homeChat">Here are some servers to choose from
+            <br>If none tickle your fancy than 
+            look up another server 
+        </p>
+    <% } %>
+    
+    <% for (let server of servers) { %>
+        <p><a class="serverText" href="/server/<%= server.name %>">L/<%= server.name %></a></p>
+    <% } %>
+</div>
 
 <%- contentFor('aside') %>
