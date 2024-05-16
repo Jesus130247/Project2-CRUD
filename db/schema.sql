@@ -81,20 +81,14 @@ ON servers.users_id = users.id;
 
 -- new PSQL (once updated in render, add to the correct location)
 
--- done since last commmit:
--- added favourites button
--- added favourites to the layout menu
--- made it so that if you click add post, you can stop that process
--- eb able to delete your favouries -> BUG: it deletes, but doesnt reload page properly.
-
 -- #working on:
+-- if you search for a server that isnt there, you are given a list of similar servers to choose from
 -- favicon
 -- style everything
 
 -- #extra if i have time
 -- make it so users can comment on comments of posts
--- making it so that users can only edit/delete a post on a server or the server itself if they are "admin" of that server
--- make it so that users can add friends 
--- make it so that users upload images, and not urls (takes adjusting the form in personal_server.ejs)
--- make it so that content on servers can only be edited by the user that uploaded it, and by admin users
-
+-- add admin roles to servers
+-- add friends functionality
+-- add iamges (not urls) (have some base code for this)
+-- redirects you to page you were just on if you are moved for login feature

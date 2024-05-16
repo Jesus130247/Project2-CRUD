@@ -19,7 +19,7 @@ router.get((`/server/:leddit_website`), (req,res) => {
     db.query(sql_getServer, [serverName], (err, result) => {
         if (err) console.log(err)
         if (!result.rows[0]) {
-            return res.render('home', {errorMessage: "This server does not exist"})
+            return res.redirect(`/similar_servers/${serverName}`)
         }
         let serverCodeId = result.rows[0].servercode_id
         db.query(sql_getContent, [serverCodeId], (err, contentResults) => {
