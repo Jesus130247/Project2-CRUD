@@ -27,7 +27,7 @@ CREATE TABLE content_for_servers (
     user_id INTEGER,
     user_name TEXT,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
-    FOREIGN KEY (serverCode_id) REFERENCES servers (servercode_id) ON DELETE CASCADE
+    FOREIGN KEY (servercode_id) REFERENCES servers (servercode_id) ON DELETE CASCADE
 );
 
 CREATE TABLE comments (
