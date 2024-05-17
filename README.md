@@ -32,3 +32,4 @@ bugs:
  - any logged in user can delete a post
  - any logged in user can delete a comment
  - can only add links as images, and not saved files
+-  if you do anything with a '/' the website crashes
