@@ -1,4 +1,4 @@
-#PROJECT LEDDIT
+#PROJECT LEDDIT -> https://project2-crud-c6x5.onrender.com/
 
 # Features
 
@@ -11,6 +11,7 @@
 		- edit all paramerters
 		- only admin can edit/delete the server
 	- create posts on servers
+   		- only user that creates can delete posts
 	- comment on posts on servers
 		- can delete your comment
 	- up/down vote posts
@@ -25,8 +26,9 @@
 	- creating a server puts you on that newly created server
 	- favourites being displayed on home page
 	- some servers being displayed on home page
-	- filter for if you search something wrong
+	- some filtering for if you search something wrong
 	- displays current user
+   	- home page displays some different servers... incase you dont know what to search for
 
 bugs:
  - can only add links as images, and not saved files
