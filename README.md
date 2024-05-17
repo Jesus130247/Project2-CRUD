@@ -53,6 +53,11 @@ starting with the idea for discord, the idea of quick messaging quickly became t
 - some planning of the database
 ![image](https://github.com/Jesus130247/Project2-CRUD/assets/150982381/68508e8c-5a0f-4789-bad2-cce097167045)
 
-
-
+# Technology used
+- HTML
+- CSS
+- JS
+- NodeJS
+- SQL
+- Render
 
