@@ -61,4 +61,5 @@ starting with the idea for discord, the idea of quick messaging quickly became t
 - NodeJS
 - SQL
 - Render
+- ejs
 
