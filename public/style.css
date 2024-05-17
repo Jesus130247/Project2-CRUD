@@ -161,6 +161,10 @@ footer {
 .create {
     margin-bottom: 20px;
 }
+.create form {
+    margin: 0 auto;
+    max-width: 225px;
+}
 .display_create {
     margin-top: 5px;
 }
