@@ -29,7 +29,7 @@
                         </form>
                     </div>
                     <aside>
-                        <% if (currentUser.id === server.users_id) { %>
+                        <% if (currentUser.id === serverContent.users_id) { %>
                             <form action="/server/<%= server.name %>/content/<%= serverContent.content_id %>?_method=DELETE" method="post">
                                 <button>Delete Post</button>
                             </form>
@@ -63,8 +63,7 @@
 <%- contentFor('aside') %>
 <p style="font-weight: 600;"><%= server.about %></p>
 <form action="/server/add_to_favourites/<%= server.name %>/<%= server.servercode_id %>" method="post">
-    <label for="">Add this server to your favourites</label>
-    <button class="addFav" >Add</button>
+    <button class="addFav" >Add Server to favourites</button>
 </form>
 <div class="plus">
     <button class="display_create">+ CREATE A POST</button>

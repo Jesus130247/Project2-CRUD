@@ -1,6 +1,6 @@
 .container {
     display: grid;
-    grid-template-columns: 1fr 4fr 0.5fr;
+    grid-template-columns: 1fr 4fr 0.75fr;
     height: 100vh;
 }
 
@@ -219,10 +219,13 @@ ul {
     font-size: 1.5rem;
 }
 .createBody {
-    margin-top: 50px;
     height: 100vh;
-    margin-left: 150px;
+    margin: 50px 75px 0 75px;
     text-align: center;
+}
+.createBody h1 {
+    color: #d93900;
+    font-size: 2.15rem;
 }
 .createBody form {
     display: flex;
@@ -244,4 +247,7 @@ ul {
 }
 .createBody h1 {
     margin-bottom: 10px;
+}
+.addFav {
+    background-color: #062759;
 }

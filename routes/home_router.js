@@ -17,7 +17,6 @@ router.get('/', (req, res) => {
                 servers.push(result.rows[i])
             }
         }
-        console.log(servers)
         res.render('home', {servers})
     })
 })
@@ -29,7 +28,6 @@ router.get('/about', (req, res) => {
 router.get('/similar_servers/:input', (req,res) => {
     let input = req.params.input;
     let trimmedInput = input.trim().toLowerCase();
-    console.log(trimmedInput)
     sql = `SELECT * FROM servers WHERE name LIKE $1;`
     db.query(sql, [`%${trimmedInput}%`], (err, likeResult) => {
         if (likeResult.rows.length === 0) {
@@ -58,7 +56,8 @@ router.post('/getSearchValue', (req,res) => {
             return res.render('home', {servers, errorMessage: "This server does not exist"})
         })
 } else {
-    return res.redirect(`/server/${req.body.search}`)
+    let newSearch = req.body.search.substring(req.body.search.indexOf('/')+1)
+    return res.redirect(`/server/${newSearch}`)
 }
 })
 

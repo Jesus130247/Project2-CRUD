@@ -1,6 +1,6 @@
 <%- contentFor('body') %>
 <div class="createBody">
-    <h2>TIME TO EDIT</h2>
+    <h1>TIME TO EDIT</h1>
     <form action="/server/edit/<%= server.servercode_id %>?_method=put" method="post">
         <label for="">Change Name?</label>
         <input type="text" name="server_name" value="<%= server.name %>">

@@ -42,23 +42,31 @@ router.post('/server/:leddit_server/:leddit_server_id/content/:content_id/commen
 })
 
 router.post(('/server/create/set_up'), (req, res) => {
-    let serverName = req.body.server_name
+    let serverName = req.body.server_name.substring(req.body.server_name.indexOf('/')+1)
     serverName = serverName.toLowerCase()
+    console.log(serverName)
     let image = req.body.server_image
     let about = req.body.server_about
     let backgroundColor = req.body.background_color
     let textColor = req.body.text_color
     let userID = res.locals.currentUser.id
-    console.log(userID)
-    if (serverName==='') {
-        return res.render('create', {errorMessage: "cannot create blank server"})
-    }
-    let serverURL = 'l/'+req.body.server_name
-    const sql_addServer = 'INSERT INTO servers (name, users_id ,server_url, main_image, about, b_color, text_color) values ($1, $2, $3, $4, $5, $6, $7);'
-    db.query(sql_addServer, [serverName, userID, serverURL, image, about, backgroundColor, textColor], (err, result) => {
+    const sql_search = 'SELECT name FROM servers WHERE name = $1;'
+    db.query(sql_search, [serverName], (err, searchRes) => {
         if (err) console.log(err)
-        console.log(`server created ${serverName} @@ ${serverURL}`)
-        res.redirect(`/server/${serverName}`)
+        if (searchRes.rows.length > 0) {
+            return res.render('create', {errorMessage: "Cannot create repeating server"})
+        }
+        if (serverName==='') {
+            return res.render('create', {errorMessage: "Cannot create blank server"})
+        } else {
+            let serverURL = 'l/'+serverName
+            const sql_addServer = 'INSERT INTO servers (name, users_id ,server_url, main_image, about, b_color, text_color) values ($1, $2, $3, $4, $5, $6, $7);'
+            db.query(sql_addServer, [serverName, userID, serverURL, image, about, backgroundColor, textColor], (err, result) => {
+                if (err) console.log(err)
+                console.log(`server created ${serverName} @@ ${serverURL}`)
+                res.redirect(`/server/${serverName}`)
+            })
+        }
     })
 })
 
@@ -73,11 +81,9 @@ router.put('/post/upvote/:content_id/:serverName', (req,res) => {
         if (err) console.log(err)
         console.log('length', checkResults.rows.length)
         if (checkResults.rows.length > 0) {
-            console.log("sql check done")
             const sql_delete = `DELETE FROM votes WHERE contents_id = $1 AND who_voted = $2;`
             db.query(sql_delete, [contentId, whoVoted], (err, deleteResults) => {
                 if (err) console.log(err)
-                console.log("sql delete area")
                 db.query(sql_vote, [1, whoVoted, contentId, serverName], (err, addResult) => {
                     if (err) console.log(err)
                     return res.redirect(`/server/${serverName}`)
@@ -86,7 +92,6 @@ router.put('/post/upvote/:content_id/:serverName', (req,res) => {
         } else {
             db.query(sql_vote, [1, whoVoted, contentId, serverName], (err, addResult) => {
                 if (err) console.log(err)
-                console.log('eql check skipped')
                 return res.redirect(`/server/${serverName}`)
             })
         }

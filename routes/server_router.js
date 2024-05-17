@@ -5,7 +5,7 @@ const ensureLoggedIn = require('../middlewares/ensure_loggedIn')
 const router = express.Router()
 
 router.get(('/server/create'), (req, res)=>{
-    console.log('youre trying to edit a file')
+    console.log('youre trying to create a server')
     res.render('create')
 })
 
@@ -27,9 +27,6 @@ router.get((`/server/:leddit_website`), (req,res) => {
             db.query(sql_getComments, [serverCodeId], (err, commentResults) => {
                 db.query(sql_votes, [serverName], (err, voteResults) => {
                     if (err) console.log(err)
-                    console.log(commentResults.rows)
-                    console.log(contentResults.rows)
-                    console.log('votes', voteResults.rows)
                     res.render('personal_server', {server: result.rows[0], serverContents: contentResults.rows, comments: commentResults.rows, votes: voteResults.rows})
                 })
             })

@@ -52,7 +52,6 @@ router.post('/sign_up', (req,res) => {
                 if (err) console.log(err)
                 db.query('SELECT * FROM users WHERE email = $1;', [email], (err, results) => {
                     if (err) console.log(err)
-                    console.log(results.rows)
                     req.session.userId = results.rows[0].id
                     res.redirect('/')
                 })
