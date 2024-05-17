@@ -40,6 +40,7 @@ bugs:
 - create user profiles
 - users can upload their own images instead of giving URLS
 - if youre asked to login, it will take you back to the page you were just on.
+- auto fill on Leddit search
 
 
 # Development process
