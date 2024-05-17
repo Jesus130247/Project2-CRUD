@@ -33,6 +33,15 @@
 bugs:
  - can only add links as images, and not saved files
 
+# Stretch Goals
+- users can comment on other comments
+- add admin roles to servers
+- add a friends functionality
+- create user profiles
+- users can upload their own images instead of giving URLS
+- if youre asked to login, it will take you back to the page you were just on.
+
+
 # Development process
 ![image](https://github.com/Jesus130247/Project2-CRUD/assets/150982381/63a3675e-3d3a-4e2a-a8f3-837ce0fe5ef6)
 starting with the idea for discord, the idea of quick messaging quickly became too much. But the idea to be able to create your own servers gave me a new idea...
