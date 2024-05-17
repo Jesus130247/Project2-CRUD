@@ -29,7 +29,15 @@
 	- displays current user
 
 bugs:
- - any logged in user can delete a post
- - any logged in user can delete a comment
  - can only add links as images, and not saved files
--  if you do anything with a '/' the website crashes
+
+# Development process
+![image](https://github.com/Jesus130247/Project2-CRUD/assets/150982381/63a3675e-3d3a-4e2a-a8f3-837ce0fe5ef6)
+starting with the idea for discord, the idea of quick messaging quickly became too much. But the idea to be able to create your own servers gave me a new idea...
+- PROJECT LEDDIT ![image](https://github.com/Jesus130247/Project2-CRUD/assets/150982381/d70968b4-8799-488a-a735-408702949c28)
+
+# a shots from the page!
+![image](https://github.com/Jesus130247/Project2-CRUD/assets/150982381/afebb9ec-8c86-4fb4-8402-f0a1c3024493)
+
+
+
