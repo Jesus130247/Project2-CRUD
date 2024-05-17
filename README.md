@@ -38,8 +38,12 @@ bugs:
 starting with the idea for discord, the idea of quick messaging quickly became too much. But the idea to be able to create your own servers gave me a new idea...
 - PROJECT LEDDIT ![image](https://github.com/Jesus130247/Project2-CRUD/assets/150982381/d70968b4-8799-488a-a735-408702949c28)
 
-# a shots from the page!
+# a shot from a page
 ![image](https://github.com/Jesus130247/Project2-CRUD/assets/150982381/afebb9ec-8c86-4fb4-8402-f0a1c3024493)
+
+# some planning of the database
+![image](https://github.com/Jesus130247/Project2-CRUD/assets/150982381/68508e8c-5a0f-4789-bad2-cce097167045)
+
 
 
 
